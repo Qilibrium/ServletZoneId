@@ -1,0 +1,39 @@
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
+@WebServlet(value = "/time")
+public class TimeServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String timezone = req.getParameter("timezone");
+        resp.setContentType("text/html; charset=utf-8");
+
+        resp.getWriter().write("${timezone}".replace("${timezone}", parseTime(req)));
+        resp.getWriter().close();
+    }
+    private String parseTime(HttpServletRequest request){
+
+        SimpleDateFormat dateFormatGmt = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+        String dat2 = dateFormatGmt.format(new Date());
+
+        dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String dat = dateFormatGmt.format(new Date());
+
+        if(request.getParameterMap().containsKey("timezone")){
+            return " "+dat2+" "+request.getParameter("timezone");
+
+        }
+        return dat;
+
+    }
+}
+
