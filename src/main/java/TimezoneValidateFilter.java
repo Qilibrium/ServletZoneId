@@ -27,11 +27,13 @@ public class TimezoneValidateFilter extends HttpFilter {
             }catch (Exception exception){
                 resp.setStatus(400);
                 resp.getWriter().write("<h1>"+"Invalid timezone"+"</h1>");
+                resp.getWriter().write("<h4>"+"HTTP CODE 400"+"</h4>");
                 resp.getWriter().close();
             }
         } else {
             resp.setStatus(400);
-            resp.getWriter().write("Invalid timezone");
+            resp.getWriter().write("<h1>"+"Invalid timezone"+"</h1>");
+            resp.getWriter().write("<h4>"+"HTTP CODE 400"+"</h4>");
             resp.getWriter().close();
         }
     }
