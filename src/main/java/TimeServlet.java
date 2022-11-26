@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 @WebServlet(value = "/time")
 public class TimeServlet extends HttpServlet {
 
+static final String FORMAT_DATA_TIME = "dd.MM.yyyy HH:mm:ss";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=utf-8");
@@ -27,7 +28,7 @@ public class TimeServlet extends HttpServlet {
             String zoneTimePlus = timezone.replace(" ", "+");
             ZoneId zoneId = ZoneId.of(zoneTimePlus);
             ZonedDateTime zdt = ZonedDateTime.now(zoneId);
-            String timeZoneUtc = zdt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+            String timeZoneUtc = zdt.format(DateTimeFormatter.ofPattern(FORMAT_DATA_TIME));
             return timeZoneUtc+" "+zoneTimePlus;
 
         }
@@ -36,5 +37,6 @@ public class TimeServlet extends HttpServlet {
         String utc = zdt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
         return utc + " UTC";
     }
+
 
 }
