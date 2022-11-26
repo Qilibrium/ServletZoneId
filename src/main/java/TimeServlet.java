@@ -14,7 +14,8 @@ public class TimeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=utf-8");
-        resp.getWriter().write("${timezone}".replace("${timezone}", parseTime(req)));
+
+        resp.getWriter().write("<h3>"+"${timezone}".replace("${timezone}", parseTime(req))+"</h3>");
         resp.setHeader("Refresh", "1");
         resp.getWriter().close();
     }
@@ -35,4 +36,5 @@ public class TimeServlet extends HttpServlet {
         String utc = zdt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
         return utc + " UTC";
     }
+
 }

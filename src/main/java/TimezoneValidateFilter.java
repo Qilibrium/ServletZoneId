@@ -5,7 +5,10 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.TimeZone;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @WebFilter(value = "/time/*")
 public class TimezoneValidateFilter extends HttpFilter {
@@ -18,12 +21,12 @@ public class TimezoneValidateFilter extends HttpFilter {
         if(timeValue==null){
             chain.doFilter(req, resp);
         }
-        else if (timeValue.contains("UTC")) {
+        else if (timeZone().contains(timeValue)|timeValue.contains("UTC")) {
             try {
                 chain.doFilter(req, resp);
             }catch (Exception exception){
                 resp.setStatus(400);
-                resp.getWriter().write("Invalid timezone");
+                resp.getWriter().write("<h1>"+"Invalid timezone"+"</h1>");
                 resp.getWriter().close();
             }
         } else {
@@ -32,5 +35,8 @@ public class TimezoneValidateFilter extends HttpFilter {
             resp.getWriter().close();
         }
     }
+    public  static String timeZone(){
+        Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
+        return String.join("\n ", availableZoneIds);
+    }
 }
-
