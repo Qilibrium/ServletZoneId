@@ -17,6 +17,12 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
 
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
+    compileOnly 'org.apache.tomcat:tomcat-catalina:10.1.2'
+    // https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
+    implementation 'org.thymeleaf:thymeleaf:3.1.0.RELEASE'
+
+
 }
 
 test {
